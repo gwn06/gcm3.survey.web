@@ -1,4 +1,4 @@
-# Gcm3
+# Gcm3 Project Assignment
 ## Stack I used
   * Elixir            - 1.17.2-otp-27
   * Erlang            - 27.0.1
