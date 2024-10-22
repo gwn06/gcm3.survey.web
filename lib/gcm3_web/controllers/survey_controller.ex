@@ -19,4 +19,12 @@ defmodule Gcm3Web.SurveyController do
         |> render(:"404")
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, survey} <- Surveys.fetch_survey(id), {:ok, _} <- Surveys.delete_survey(survey) do
+      send_resp(conn, :no_content, "")
+    else
+      {:error, _} -> send_resp(conn, :not_found, "")
+    end
+  end
 end
