@@ -1,15 +1,15 @@
 # Gcm3 Project Assignment
-## Stack I used
+## Stack I used:
   * Elixir            - 1.17.2-otp-27
   * Erlang            - 27.0.1
   * Phoenix Framework - 1.17.14
-  * Postgresql
+  * PostgreSQL
   * Tailwind CSS
 
 ## Run phoenix server:
   * cd project_name
   * mix deps.get // to get dependencies
-  * mix ecto.create
+  * mix ecto.create // create a database
   * mix ecto.migrate
   * mix phx.server
   

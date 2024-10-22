@@ -87,11 +87,11 @@ defmodule Gcm3Web.SurveyLive do
 
     case Surveys.create_survey(socket.assigns.changeset.changes) do
       {:ok, _survey} ->
-        new_changest = Surveys.change_survey(%Survey{})
+        new_changeset = Surveys.change_survey(%Survey{})
 
         {:noreply,
          socket
-         |> assign(changeset: new_changest)
+         |> assign(changeset: new_changeset)
          |> put_flash(
            :info,
            """
