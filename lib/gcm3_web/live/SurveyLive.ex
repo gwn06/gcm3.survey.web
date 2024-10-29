@@ -23,10 +23,12 @@ defmodule Gcm3Web.SurveyLive do
                     value={value}
                     class="hidden peer"
                     checked={@changeset.changes[:answers][question_key] == value}
+                    phx-throttle="5000"
                   />
                   <label
                     for={"#{question_key <> selection}"}
-                    class="peer-checked:bg-sky-800  peer-checked:text-zinc-50 peer-checked:border-zinc-600  p-2 border border-[3px] rounded-xl border-zinc-400 text-zinc-500 transition-all duration-100  hover:border-sky-800 hover:text-zinc-100 hover:text-zinc-800"
+                    class="peer-checked:bg-sky-800  peer-checked:text-zinc-50 peer-checked:border-zinc-600  p-2 border border-[3px] rounded-xl
+                      border-zinc-400 text-zinc-500 transition-all duration-100  hover:border-sky-800 hover:text-zinc-100 hover:text-zinc-800"
                   >
                     <%= selection %>
                   </label>
@@ -40,15 +42,13 @@ defmodule Gcm3Web.SurveyLive do
           </div>
         <% end %>
 
-        <:actions>
-          <.button
-            class={"mx-6 mb-6 bg-gray-500 disabled:bg-gray-400 hover:bg-gray-500 #{if !@changeset.valid?, do: "pointer-events-none"}"}
-            phx-disable-with="Submitting..."
-            disabled={!@changeset.valid?}
-          >
-            Submit
-          </.button>
-        </:actions>
+        <.button
+          class={"mx-6 mb-6  disabled:bg-gray-500 hover:bg-gray-500 #{if !@changeset.valid?, do: "pointer-events-none"}"}
+          phx-disable-with="Submitting..."
+          disabled={!@changeset.valid?}
+        >
+          Submit
+        </.button>
       </.simple_form>
     </div>
     """
@@ -83,8 +83,6 @@ defmodule Gcm3Web.SurveyLive do
   end
 
   def handle_event("save", _params, socket) do
-    dbg(socket)
-
     case Surveys.create_survey(socket.assigns.changeset.changes) do
       {:ok, _survey} ->
         new_changeset = Surveys.change_survey(%Survey{})
@@ -92,12 +90,7 @@ defmodule Gcm3Web.SurveyLive do
         {:noreply,
          socket
          |> assign(changeset: new_changeset)
-         |> put_flash(
-           :info,
-           """
-           You can check out /api/surveys to see all data.
-           """
-         )}
+         |> put_flash(:info, " You can check out /api/surveys to see all data. ")}
 
       {:error, %Ecto.Changeset{} = _changeset} ->
         {:noreply, socket}
