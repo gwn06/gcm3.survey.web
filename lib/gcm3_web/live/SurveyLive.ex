@@ -23,7 +23,7 @@ defmodule Gcm3Web.SurveyLive do
                     value={value}
                     class="hidden peer"
                     checked={@changeset.changes[:answers][question_key] == value}
-                    phx-throttle="5000"
+                    phx-throttle="500"
                   />
                   <label
                     for={"#{question_key <> selection}"}
